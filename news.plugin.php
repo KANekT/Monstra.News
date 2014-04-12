@@ -17,7 +17,7 @@
 Plugin::register( __FILE__,
     __('News', 'news'),
     __('News plugin for Monstra', 'news'),
-    '2.0.5',
+    '2.1.0',
     'KANekT',
     'http://kanekt.ru/',
     'news');
@@ -34,8 +34,6 @@ if (Session::exists('user_role') && in_array(Session::get('user_role'), array('a
 if (!Registry::exists('dev_valid_backend'))
     Javascript::add('plugins/news/dev/js/validate.js', 'backend', 11);
 if (!Registry::exists('dev_bootstrap_file_upload')) {
-    Stylesheet::add('plugins/news/dev/css/bootstrap-fileupload.min.css', 'backend',18);
-    Javascript::add('plugins/news/dev/js/bootstrap-fileupload.min.js', 'backend', 18);
     Javascript::add('plugins/news/dev/js/bootstrap-fileupload-setting.js', 'backend', 19);
 }
 if (!Registry::exists('dev_fancy_frontend'))

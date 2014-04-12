@@ -627,9 +627,9 @@ class NewsAdmin extends Backend {
         );
     }
 
-    private static function UploadImage($uid, $folder, $_FILES)
+    private static function UploadImage($uid, $folder, $_files)
     {
-        foreach($_FILES as $item)
+        foreach($_files as $item)
         {
             if ($item) {
                 if($item['type'] == 'image/jpeg' ||

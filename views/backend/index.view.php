@@ -8,21 +8,17 @@ echo Form::hidden('csrf', $token)
 </style>
 <div class="row-fluid">
     <div class="span12">
-
         <h2><?php echo __('News', 'news'); ?>
             <div class="btn-group">
-                <?php echo Html::anchor(__('Create news', 'news'), 'index.php?id=news&action=add_news', array('title' => __('Create new news', 'news'), 'class' => 'btn btn-small')) ?>
-                <button class="btn btn-small dropdown-toggle" data-toggle="dropdown">
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li><?php echo Html::anchor(__('Settings', 'news'), 'index.php?id=news&action=settings');?></li>
-                    <li><?php echo Html::anchor(__('Example Code', 'news'), '#exampleCode', array('role' => 'button', 'data-toggle' => 'modal'));?></a></li>
-                </ul>
+                <?php echo Html::anchor(__('Create news', 'news'), 'index.php?id=news&action=add_news', array('title' => __('Create new news', 'news'), 'class' => 'btn btn-primary')) ?>
             </div>
             <div class="btn-group">
-                <span class="btn btn-small"><?php echo __('Sorting', 'news'); ?></span>
-                <button class="btn btn-small dropdown-toggle" data-toggle="dropdown">
+                <?php echo Html::anchor(__('Settings', 'news'), 'index.php?id=news&action=settings', array('title' => __('Settings', 'news'), 'class' => 'btn btn-default')) ?>
+                <?php echo Html::anchor(__('Example Code', 'news'), '#exampleCode', array('role' => 'button', 'data-toggle' => 'modal', 'class' => 'btn btn-default'));?>
+            </div>
+            <div class="btn-group">
+                <span class="btn btn-default"><?php echo __('Sorting', 'news'); ?></span>
+                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
