@@ -17,7 +17,7 @@
 Plugin::register( __FILE__,
     __('News', 'news'),
     __('News plugin for Monstra', 'news'),
-    '2.1.0',
+    '2.1.b',
     'KANekT',
     'http://kanekt.ru/',
     'news');
@@ -46,11 +46,11 @@ if (!Registry::exists('dev_fancy_frontend'))
 }
 
 Registry::set('dev_valid_backend', 1);
-Registry::set('dev_bootstrap_file_upload', 1);
 Registry::set('dev_fancy_frontend', 1);
 
 Shortcode::add('news', 'News::_shortcode');
 Javascript::add('plugins/news/js/admin.js', 'backend', 15);
+Stylesheet::add('plugins/news/css/frontend.css', 'frontend',15);
 
 class News extends Frontend {
 
