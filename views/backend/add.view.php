@@ -2,9 +2,6 @@
 <br />
 
 <?php
-if (Notification::get('success')) Alert::success(Notification::get('success'));
-if (Notification::get('error')) Alert::error(Notification::get('error'));
-
 echo (
     Form::open(null, array('class' => 'form_validate','enctype' => 'multipart/form-data')).
     Form::hidden('csrf', Security::token())
