@@ -88,7 +88,7 @@ class NewsAdmin extends Backend {
 
                             Action::run('admin_news_settings');
 
-                            Request::redirect('index.php?id=news');
+                            Request::redirect('index.php?id=news&action=settings');
                         } else { die('csrf detected!'); }
                     }
 

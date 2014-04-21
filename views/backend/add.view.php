@@ -63,8 +63,7 @@ echo (
         <div class="form-group">
             <?php
             echo (
-                Form::label('news_robots', __('Search Engines Robots', 'news')).
-                Html::br(1).
+                Form::label('news_robots', __('Search Engines Robots', 'news')).Html::br(1).
                 'no Index'.Html::nbsp().Form::checkbox('news_robots_index', 'index', $item['robots_index']).Html::nbsp(2).
                 'no Follow'.Html::nbsp().Form::checkbox('news_robots_follow', 'follow', $item['robots_follow'])
             );
@@ -178,6 +177,6 @@ echo (
                 </span>
             </div>
         </div>
-        <?php echo Form::close(); ?>
     </div>
 </div>
+<?php echo Form::close(); ?>

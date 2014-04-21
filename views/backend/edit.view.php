@@ -132,7 +132,7 @@ echo (
                                     <?php
                                     if(file::exists($opt['dir'] . $parent . $item['slug'] . DS . $pic)):
                                         ?>
-                                        <a href="#" rel="<?php echo $opt['url'].$item['parent'].$item['slug'].'/'.$pic ?>"><img alt="" style="max-width:100px; max-height:50px;" src="<?php echo $opt['url'].$item['parent'].$item['slug'].'/thumbnail/'.$pic ?>"></a>
+                                        <a href="#" rel="<?php echo $opt['url'].$item['parent'].$item['slug'].'/'.$pic ?>"><img alt="" src="<?php echo $opt['url'].$item['parent'].$item['slug'].'/thumbnail/'.$pic ?>"></a>
                                     <?php endif; ?>
                                 </div>
                                 <div>
