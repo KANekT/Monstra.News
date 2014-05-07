@@ -20,7 +20,7 @@
             }
             $listPic = File::scan($opt['dir'] . $parent . $item['slug'] . DS . 'thumbnail');
 
-            $url_item = $opt["site_url"].'news/'.$item["slug"];
+            $url_item = $opt["site_url"].'/news/'.$item["slug"];
             ?>
             <div class="col-md-12 newsShort">
                 <h1><?php echo $item['name'] ?></h1>
@@ -43,11 +43,11 @@
     <?php endif;
     echo News::Tags();
     if (Request::get('tag')) {
-        $page_url[0] = $opt["site_url"].'news/page/';
+        $page_url[0] = $opt["site_url"].'/news/page/';
         $page_url[1] = '?tag='.Request::get('tag');
     }
     else{
-        $page_url = $opt["site_url"].'news/page/';
+        $page_url = $opt["site_url"].'/news/page/';
     }
     ?>
     <?php echo News::paginator($opt['page'], $opt['pages'], $page_url);?>

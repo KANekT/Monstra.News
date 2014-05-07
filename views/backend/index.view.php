@@ -72,7 +72,7 @@ input[type="radio"], input[type="checkbox"]{margin: 0;}
                 <td>
                     <?php
                     $parent  = (trim($item['parent']) == '') ? '' : $item['parent'].'/';
-                    echo $dash.Html::anchor(Html::toText($item['name']), $opt['site_url'].'news/'.$parent.$item['slug'], array('target' => '_blank', 'rel' => 'children_'.$item['parent']));
+                    echo $dash.Html::anchor(Html::toText($item['name']), $opt['site_url'].'/news/'.$parent.$item['slug'], array('target' => '_blank', 'rel' => 'children_'.$item['parent']));
                     ?>
                 </td>
                 <td>
