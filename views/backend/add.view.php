@@ -109,15 +109,15 @@ echo (
     <div class="tab-pane <?php if (Notification::get('img')) { ?>active<?php } ?>" id="img">
         <div><ul class="list-inline img-upload">
                 <li>
-                    <div class="fileupload fileupload-new" data-provides="fileupload">
-                        <div class="fileupload-preview thumbnail" style="width: 200px; height: 150px;"></div>
+                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                        <div class="fileinput-preview thumbnail" style="width: 200px; height: 150px;"></div>
                         <div>
                                 <span class="btn btn-file">
-                                    <span class="fileupload-new"><?php echo __('Select image', 'news'); ?></span>
-                                    <span class="fileupload-exists"><?php echo __('Change', 'news'); ?></span>
+                                    <span class="fileinput-new"><?php echo __('Select image', 'news'); ?></span>
+                                    <span class="fileinput-exists"><?php echo __('Change', 'news'); ?></span>
                                     <?php echo Form::file('news_file')?>
                                 </span>
-                            <a href="#" class="btn fileupload-exists" data-dismiss="fileupload"><?php echo __('Remove', 'news'); ?></a>
+                            <a href="#" class="btn fileinput-exists" data-dismiss="fileinput"><?php echo __('Remove', 'news'); ?></a>
                         </div>
                     </div>
                 </li>

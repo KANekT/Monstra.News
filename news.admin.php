@@ -52,7 +52,7 @@ class NewsAdmin extends Backend {
         // Access array
         $opt['access'] = array('public'   => __('Public', 'news'), 'registered'  => __('Registered', 'news'));
 
-        $opt['url'] = $opt['site_url'] . 'public/uploads/news/';
+        $opt['url'] = $opt['site_url'] . '/public/uploads/news/';
         $opt['dir'] = ROOT . DS . 'public' . DS . 'uploads' . DS . 'news' . DS;
 
 

@@ -16,8 +16,8 @@
         }
         $listPic = File::scan($opt['dir'] . $parent . $item['slug'] . DS . 'thumbnail');
         if ($listPic != null) : ?>
-            <ul class="thumbnails col-md-3">
-            <?php foreach($listPic as $pic) : ?><li class="col-md-3">
+            <ul class="list-inline col-md-3">
+            <?php foreach($listPic as $pic) : ?><li>
             <a class="cImg pull-left" rel="<?php echo $item["slug"] ?>" href="<?php echo $opt["url"].$item['parent'].$item["slug"].'/'.$pic ?>"><img class="pull-left img-responsive thumb margin10 img-thumbnail" alt="<?php echo $item['name'] ?>" src="<?php echo $opt["url"].$item['parent'].$item["slug"].'/'.'thumbnail/'.$pic ?>"></a>
             </li><?php endforeach;?>
             </ul>
@@ -26,7 +26,7 @@
         <?php endif;?>
     <em><i class="glyphicon glyphicon-calendar"></i><?php echo Date::format($item['date'], "d.m.Y H:i:s"); ?></em>
     <article><p>
-            <?php echo News::ContentById($item['id'], true); ?>
+            <?php echo News::ContentById($item['id']); ?>
     </p></article>
 </div>
 <div class="clearfix"></div><div>

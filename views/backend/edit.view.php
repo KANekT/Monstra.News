@@ -127,8 +127,8 @@ echo (
                     foreach($listPic as $pic) :
                         ?>
                         <li>
-                            <div class="fileupload fileupload-new" data-provides="fileupload">
-                                <div class="fileupload-preview thumbnail image" style="width: 200px; height: 150px; vertical-align: middle; line-height: 150px;">
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                                <div class="fileinput-preview thumbnail image" style="width: 200px; height: 150px; vertical-align: middle; line-height: 150px;">
                                     <?php
                                     if(file::exists($opt['dir'] . $parent . $item['slug'] . DS . $pic)):
                                         ?>
@@ -137,11 +137,11 @@ echo (
                                 </div>
                                 <div>
                                     <span class="btn btn-file">
-                                        <span class="fileupload-new"><?php echo __('Select image', 'news'); ?></span>
-                                        <span class="fileupload-exists"><?php echo __('Change', 'news'); ?></span>
+                                        <span class="fileinput-new"><?php echo __('Select image', 'news'); ?></span>
+                                        <span class="fileinput-exists"><?php echo __('Change', 'news'); ?></span>
                                         <?php echo Form::file($pic)?>
                                     </span>
-                                    <a href="#" class="btn fileupload-exists" data-dismiss="fileupload" data-key="<?php echo $pic ?>" data-dir="<?php echo $opt['dir'] . $parent . $item['slug'] . DS ?>" data-action="delImg"><?php echo __('Remove', 'news'); ?></a>
+                                    <a href="#" class="btn fileinput-exists" data-dismiss="fileinput" data-key="<?php echo $pic ?>" data-dir="<?php echo $opt['dir'] . $parent . $item['slug'] . DS ?>" data-action="delImg"><?php echo __('Remove', 'news'); ?></a>
                                 </div>
                             </div>
                         </li>

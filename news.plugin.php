@@ -47,6 +47,7 @@ if (!Registry::exists('dev_fancy_frontend'))
 
 Registry::set('dev_valid_backend', 1);
 Registry::set('dev_fancy_frontend', 1);
+Registry::set('dev_bootstrap_file_upload', 1);
 
 Shortcode::add('news', 'News::_shortcode');
 Javascript::add('plugins/news/js/admin.js', 'backend', 15);
@@ -96,7 +97,7 @@ class News extends Frontend {
     private static function getNews($uri, $parent = ""){
 
         $opt['site_url'] = Option::get('siteurl');
-        $opt['url'] = $opt['site_url'] . 'public/uploads/news/';
+        $opt['url'] = $opt['site_url'] . '/public/uploads/news/';
         $opt['dir'] = ROOT . DS . 'public' . DS . 'uploads' . DS . 'news' . DS;
         $limit    = Option::get('news_limit');
 
@@ -179,11 +180,13 @@ class News extends Frontend {
      */
     private static function getNewsList($count, $action, $parent='', $display=true){
         $opt['site_url'] = Option::get('siteurl');
+        $opt['url'] = $opt['site_url'] . '/public/uploads/news/';
+        $opt['dir'] = ROOT . DS . 'public' . DS . 'uploads' . DS . 'news' . DS;
         News::$news = new Table('news');
 
         $sort = ($action == 'views') ? 'hits' : 'date';
 
-        $records_all = News::$news->select('[status="published" and parent="'.$parent.'"]', 'all', null, array('id', 'slug', 'name', 'hits', 'date'));
+        $records_all = News::$news->select('[status="published" and parent="'.$parent.'"]', 'all', null, array('id', 'slug', 'name', 'hits', 'date', 'parent'));
         $records_sort = Arr::subvalSort($records_all, $sort, 'DESC');
 
         if(count($records_sort)>0) {
@@ -228,7 +231,7 @@ class News extends Frontend {
         else
             $slug = $uri[1];
         $opt['site_url'] = Option::get('siteurl');
-        $opt['url'] = $opt['site_url'] . 'public/uploads/news/';
+        $opt['url'] = $opt['site_url'] . '/public/uploads/news/';
         $opt['dir'] = ROOT . DS . 'public' . DS . 'uploads' . DS . 'news' . DS;
         $record = News::$news->select('[slug="'.$slug.'"]', null);
         News::$slug = $slug;
@@ -285,6 +288,8 @@ class News extends Frontend {
      *      echo News::ContentById(1, true);
      *  </code>
      *
+     * @param $id
+     * @param bool $short
      * @return string
      */
     public static function ContentById($id, $short=false) {
@@ -309,6 +314,7 @@ class News extends Frontend {
      *      echo News::Tags();
      *  </code>
      *
+     * @param null $slug
      * @return string
      */
     public static function Tags($slug = null) {
@@ -324,6 +330,7 @@ class News extends Frontend {
      * Get tags array
      * @author Romanenko Sergey / Awilum
      *
+     * @param null $slug
      * @return array
      */
     private static function getTagsArray($slug = null) {
@@ -371,6 +378,7 @@ class News extends Frontend {
      *      echo News::Related();
      *  </code>
      *
+     * @param null $limit
      * @return string
      */
     public static function Related($limit = null) {
@@ -394,6 +402,7 @@ class News extends Frontend {
      * Get related posts
      * @author Romanenko Sergey / Awilum
      *
+     * @param null $limit
      * @return string
      */
     private static function getRelated($limit = null) {
@@ -421,6 +430,7 @@ class News extends Frontend {
     /**
      * Get Children News
      *
+     * @param $slug
      * @return string
      */
     public static function Children($slug)

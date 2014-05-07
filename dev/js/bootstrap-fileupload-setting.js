@@ -3,7 +3,7 @@
  * User: KANekT
  */
 $(function() {
-    $(".fileupload-preview > a").each(function() {
-        $('.fileupload').addClass('fileupload-exists').removeClass('fileupload-new');
+    $(".fileinput-preview > a").each(function() {
+        $('.fileinput').addClass('fileinput-exists').removeClass('fileinput-new');
     });
 });
