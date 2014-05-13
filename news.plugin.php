@@ -193,7 +193,7 @@ class News extends Frontend {
         {
             News::$path = '/news/';
         }
-        
+
         $opt['site_url'] = Option::get('siteurl');
         $opt['url'] = $opt['site_url'] . '/public/uploads/news/';
         $opt['dir'] = ROOT . DS . 'public' . DS . 'uploads' . DS . 'news' . DS;

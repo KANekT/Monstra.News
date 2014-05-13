@@ -9,7 +9,7 @@
     Option::add('news_wmax', 900);
     Option::add('news_hmax', 800);
     Option::add('news_resize', 'crop');
-    Option::add('news_is_main', true);
+    Option::add('news_is_main', 0);
 
     // Add table
     $fields = array('slug', 'robots_index', 'robots_follow', 'name', 'title', 'parent', 'status', 'template', 'access', 'description', 'keywords', 'author', 'date', 'hits', 'tags');
