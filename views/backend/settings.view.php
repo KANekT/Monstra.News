@@ -80,6 +80,14 @@ echo (
             );
             ?>
         </div>
+        <div class="form-group">
+            <?php
+            echo (
+                Form::label('is_main', __('News is Main Plugin', 'news')).Html::br().
+                Form::checkbox('is_main', '1', Option::get('news_is_main') > 0 ? true : false )
+            );
+            ?>
+        </div>
     </div>
 </div>
 

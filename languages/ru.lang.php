@@ -77,7 +77,7 @@
             'Resize'                            => 'Способ уменьшения изображения',
             'News per page (admin)'             => 'Количество новостей на странице (админка)',
             'Original width (px, max)'          => 'Ширина оригинала (px, максимум)',
-            'Original height (px, max)'         => 'Высота оригинала (px, максимум)',
+            'News is Main Plugin'               => 'Новости - главный плагин',
 
             //Modal
             'Code Last News'       => 'Последние новости',
