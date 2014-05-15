@@ -12,7 +12,7 @@
     Option::add('news_is_main', 0);
 
     // Add table
-    $fields = array('slug', 'robots_index', 'robots_follow', 'name', 'title', 'parent', 'status', 'template', 'access', 'description', 'keywords', 'author', 'date', 'hits', 'tags');
+    $fields = array('slug', 'robots_index', 'robots_follow', 'name', 'title', 'parent', 'status', 'template', 'access', 'description', 'keywords', 'author', 'date', 'hits', 'tags', 'expand');
     Table::create('news', $fields);
 
     // Add directory for content
