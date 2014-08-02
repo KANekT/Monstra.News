@@ -52,7 +52,7 @@ class NewsAdmin extends Backend {
         // Access array
         $opt['access'] = array('public'   => __('Public', 'news'), 'registered'  => __('Registered', 'news'));
 
-        $opt['url'] = $opt['site_url'] . 'public/uploads/news/';
+        $opt['url'] = $opt['site_url'] . '/public/uploads/news/';
         $opt['dir'] = ROOT . DS . 'public' . DS . 'uploads' . DS . 'news' . DS;
 
 
@@ -81,14 +81,15 @@ class NewsAdmin extends Backend {
                                 'news_h' => (int)Request::post('height_thumb'),
                                 'news_wmax'   => (int)Request::post('width_orig'),
                                 'news_hmax'   => (int)Request::post('height_orig'),
-                                'news_resize' => (string)Request::post('resize')
+                                'news_resize' => (string)Request::post('resize'),
+                                'news_is_main' => (int)Request::post('is_main')
                             ));
 
                             Notification::set('success', __('Your changes have been saved', 'news'));
 
                             Action::run('admin_news_settings');
 
-                            Request::redirect('index.php?id=news');
+                            Request::redirect('index.php?id=news&action=settings');
                         } else { die('csrf detected!'); }
                     }
 
@@ -627,9 +628,9 @@ class NewsAdmin extends Backend {
         );
     }
 
-    private static function UploadImage($uid, $folder, $_FILES)
+    private static function UploadImage($uid, $folder, $_files)
     {
-        foreach($_FILES as $item)
+        foreach($_files as $item)
         {
             if ($item) {
                 if($item['type'] == 'image/jpeg' ||

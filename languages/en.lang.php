@@ -78,6 +78,7 @@
             'News per page (admin)'             => 'News per page (admin)',
             'Original width (px, max)'          => 'Original width (px, max)',
             'Original height (px, max)'         => 'Original height (px, max)',
+            'News is Main Plugin'               => 'News is Main Plugin',
 
             //Modal
             'Code Last News'       => 'Last News',

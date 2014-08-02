@@ -42,11 +42,11 @@ $(function() {
         return false;
     });
 
-    $("input[data-action=checked]").click(function() {
+    $('input[data-action=checked]').on('ifChanged', function(){
         if($(this).prop('checked')){
-            $('input[name="key"]').prop('checked',true);
+            $('input[name="key"]').iCheck('check');
         } else {
-            $('input[name="key"]').prop('checked',false);
+            $('input[name="key"]').iCheck('uncheck');
         }
     });
 

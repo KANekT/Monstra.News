@@ -9,6 +9,7 @@ Option::delete('news_h');
 Option::delete('news_wmax');
 Option::delete('news_hmax');
 Option::delete('news_resize');
+Option::delete('news_is_main');
 
 Table::drop('news');
 

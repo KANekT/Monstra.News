@@ -17,10 +17,15 @@
 Plugin::register( __FILE__,
     __('News', 'news'),
     __('News plugin for Monstra', 'news'),
-    '2.0.5',
+    '2.1.b',
     'KANekT',
     'http://kanekt.ru/',
     'news');
+
+if (Option::get('news_is_main') > 0)
+{
+    Uri::$default_component = 'news';
+}
 
 // Load News Admin for Editor and Admin
 if (Session::exists('user_role') && in_array(Session::get('user_role'), array('admin', 'editor'))) {
@@ -34,8 +39,6 @@ if (Session::exists('user_role') && in_array(Session::get('user_role'), array('a
 if (!Registry::exists('dev_valid_backend'))
     Javascript::add('plugins/news/dev/js/validate.js', 'backend', 11);
 if (!Registry::exists('dev_bootstrap_file_upload')) {
-    Stylesheet::add('plugins/news/dev/css/bootstrap-fileupload.min.css', 'backend',18);
-    Javascript::add('plugins/news/dev/js/bootstrap-fileupload.min.js', 'backend', 18);
     Javascript::add('plugins/news/dev/js/bootstrap-fileupload-setting.js', 'backend', 19);
 }
 if (!Registry::exists('dev_fancy_frontend'))
@@ -48,11 +51,12 @@ if (!Registry::exists('dev_fancy_frontend'))
 }
 
 Registry::set('dev_valid_backend', 1);
-Registry::set('dev_bootstrap_file_upload', 1);
 Registry::set('dev_fancy_frontend', 1);
+Registry::set('dev_bootstrap_file_upload', 1);
 
 Shortcode::add('news', 'News::_shortcode');
 Javascript::add('plugins/news/js/admin.js', 'backend', 15);
+Stylesheet::add('plugins/news/css/frontend.css', 'frontend',15);
 
 class News extends Frontend {
 
@@ -61,6 +65,7 @@ class News extends Frontend {
     public static $meta = array(); // meta tags news @array
     public static $template = ''; // news template content @string
     public static $slug;
+    public static $path = '/';
 
     public static function main(){
 
@@ -69,24 +74,29 @@ class News extends Frontend {
         News::$meta['title'] = __('News', 'news');
         News::$meta['keywords'] = '';
         News::$meta['description'] = '';
-
         $uri = Uri::segments();
-
-        if($uri[0] == 'news') {
-            if (isset($uri[1]))
+        $segment = 0;
+        if($uri[$segment] == 'news' || Option::get('news_is_main') > 0) {
+            if (Option::get('news_is_main') == 0)
             {
-                switch($uri[1])
+                News::$path = '/news/';
+                $segment++;
+            }
+
+            if (isset($uri[$segment]) && $uri[$segment] != '')
+            {
+                switch($uri[$segment])
                 {
                     case 'page':
-                        News::getNews($uri);
+                        News::getNews($uri, $segment);
                         break;
                     default:
-                        News::getNewsBySlug($uri);
+                        News::getNewsBySlug($uri, $segment);
                         break;
                 }
             }
             else{
-                News::getNews($uri);
+                News::getNews($uri, $segment);
             }
         }
     }
@@ -95,10 +105,10 @@ class News extends Frontend {
     /**
      * get News
      */
-    private static function getNews($uri, $parent = ""){
+    private static function getNews($uri, $segment, $parent = ""){
 
         $opt['site_url'] = Option::get('siteurl');
-        $opt['url'] = $opt['site_url'] . 'public/uploads/news/';
+        $opt['url'] = $opt['site_url'] . '/public/uploads/news/';
         $opt['dir'] = ROOT . DS . 'public' . DS . 'uploads' . DS . 'news' . DS;
         $limit    = Option::get('news_limit');
 
@@ -115,9 +125,8 @@ class News extends Frontend {
         $count_news = count($records_all);
 
         $opt['pages'] = ceil($count_news/$limit);
-
-        $opt['page'] = (isset($uri[1]) and isset($uri[2]) and $uri[1] == 'page') ? (int)$uri[2] : 1;
-
+        $segment_1 = $segment+1;
+        $opt['page'] = (isset($uri[$segment]) and isset($uri[$segment_1]) and $uri[$segment_1] != '' and $uri[$segment] != 'page') ? (int)$uri[$segment_1] : 1;
         if($opt['page'] < 1 or $opt['page'] > $opt['pages']) {
             News::error404();
         } else {
@@ -180,12 +189,19 @@ class News extends Frontend {
      * List news
      */
     private static function getNewsList($count, $action, $parent='', $display=true){
+        if (Option::get('news_is_main') == 0)
+        {
+            News::$path = '/news/';
+        }
+
         $opt['site_url'] = Option::get('siteurl');
+        $opt['url'] = $opt['site_url'] . '/public/uploads/news/';
+        $opt['dir'] = ROOT . DS . 'public' . DS . 'uploads' . DS . 'news' . DS;
         News::$news = new Table('news');
 
         $sort = ($action == 'views') ? 'hits' : 'date';
 
-        $records_all = News::$news->select('[status="published" and parent="'.$parent.'"]', 'all', null, array('id', 'slug', 'name', 'hits', 'date'));
+        $records_all = News::$news->select('[status="published" and parent="'.$parent.'"]', 'all', null, array('id', 'slug', 'name', 'hits', 'date', 'parent'));
         $records_sort = Arr::subvalSort($records_all, $sort, 'DESC');
 
         if(count($records_sort)>0) {
@@ -221,16 +237,17 @@ class News extends Frontend {
     /**
      * get Current news
      */
-    private static function getNewsBySlug($uri){
-        if (isset($uri[2]))
+    private static function getNewsBySlug($uri, $segment){
+        $segment_1 = $segment + 1;
+        if (isset($uri[$segment_1]))
         {
-            $slug = $uri[2];
-            $parent_name = News::$news->select('[slug="'.$uri[1].'"]', null);
+            $slug = $uri[$segment_1];
+            $parent_name = News::$news->select('[slug="'.$uri[$segment].'"]', null);
         }
         else
-            $slug = $uri[1];
+            $slug = $uri[$segment];
         $opt['site_url'] = Option::get('siteurl');
-        $opt['url'] = $opt['site_url'] . 'public/uploads/news/';
+        $opt['url'] = $opt['site_url'] . '/public/uploads/news/';
         $opt['dir'] = ROOT . DS . 'public' . DS . 'uploads' . DS . 'news' . DS;
         $record = News::$news->select('[slug="'.$slug.'"]', null);
         News::$slug = $slug;
@@ -287,6 +304,8 @@ class News extends Frontend {
      *      echo News::ContentById(1, true);
      *  </code>
      *
+     * @param $id
+     * @param bool $short
      * @return string
      */
     public static function ContentById($id, $short=false) {
@@ -311,6 +330,7 @@ class News extends Frontend {
      *      echo News::Tags();
      *  </code>
      *
+     * @param null $slug
      * @return string
      */
     public static function Tags($slug = null) {
@@ -326,6 +346,7 @@ class News extends Frontend {
      * Get tags array
      * @author Romanenko Sergey / Awilum
      *
+     * @param null $slug
      * @return array
      */
     private static function getTagsArray($slug = null) {
@@ -373,6 +394,7 @@ class News extends Frontend {
      *      echo News::Related();
      *  </code>
      *
+     * @param null $limit
      * @return string
      */
     public static function Related($limit = null) {
@@ -396,6 +418,7 @@ class News extends Frontend {
      * Get related posts
      * @author Romanenko Sergey / Awilum
      *
+     * @param null $limit
      * @return string
      */
     private static function getRelated($limit = null) {
@@ -423,6 +446,7 @@ class News extends Frontend {
     /**
      * Get Children News
      *
+     * @param $slug
      * @return string
      */
     public static function Children($slug)
