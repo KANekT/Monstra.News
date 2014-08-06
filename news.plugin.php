@@ -17,7 +17,7 @@
 Plugin::register( __FILE__,
     __('News', 'news'),
     __('News plugin for Monstra', 'news'),
-    '2.1.b',
+    '3.0.0',
     'KANekT',
     'http://kanekt.ru/',
     'news');
