@@ -17,7 +17,7 @@
 Plugin::register( __FILE__,
     __('News', 'news'),
     __('News plugin for Monstra', 'news'),
-    '3.0.0',
+    '3.0.1',
     'KANekT',
     'http://kanekt.ru/',
     'news');
@@ -126,11 +126,10 @@ class News extends Frontend {
 
         $opt['pages'] = ceil($count_news/$limit);
         $segment_1 = $segment+1;
-        $opt['page'] = (isset($uri[$segment]) and isset($uri[$segment_1]) and $uri[$segment_1] != '' and $uri[$segment] != 'page') ? (int)$uri[$segment_1] : 1;
+        $opt['page'] = (isset($uri[$segment]) and isset($uri[$segment_1]) and $uri[$segment_1] != '' and $uri[$segment] == 'page') ? (int)$uri[$segment_1] : 1;
         if($opt['page'] < 1 or $opt['page'] > $opt['pages']) {
             News::error404();
         } else {
-
             $start = ($opt['page']-1)*$limit;
 
             $records_sort = Arr::subvalSort($records_all, 'date', 'DESC');
@@ -533,7 +532,7 @@ class News extends Frontend {
             }
 
             // pages list
-            $content .= '<div class="pagination"><ul>';
+            $content .= '<div><ul class="pagination">';
 
             // next
             if($current!=$pages && $sections > 0)
