@@ -29,7 +29,8 @@
             <?php echo News::ContentById($item['id']); ?>
     </p></article>
 </div>
-<div class="clearfix"></div><div>
+<div class="clearfix"></div>
+<div>
 <?php if(!isset($opt['display'])) :?>
     <? echo News::Tags($item['slug']);?>
     <? echo News::Children($item['slug']); ?>
@@ -39,7 +40,5 @@
             <li><?php echo Date::format($item['date'], 'd.m.Y'); ?></li>
             <li class="active"><?php echo __('Hits count', 'news').$item['hits'] ?></li>
         </ul>
-    </div>
-<?php endif;
-?>
 </div>
+<?php endif; ?>
